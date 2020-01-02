@@ -81,6 +81,8 @@ const char wifiSSID[]  = "YourSSID";
 const char wifiPass[] = "YourWiFiPass";
 
 #include <TinyGsmClient.h>
+#include <SPI.h>
+#include <SD.h>
 
 #if TINY_GSM_TEST_GPRS && not defined TINY_GSM_MODEM_HAS_GPRS
 #undef TINY_GSM_TEST_GPRS
@@ -117,6 +119,10 @@ TinyGsm modem(SerialAT);
 #define PIN_RX      26
 #define UART_BAUD   115200
 #define PWR_PIN     4
+#define SD_MISO     2
+#define SD_MOSI     15
+#define SD_SCLK     14
+#define SD_CS       13
 
 void setup()
 {
@@ -128,6 +134,16 @@ void setup()
     digitalWrite(PWR_PIN, HIGH);
     delay(300);
     digitalWrite(PWR_PIN, LOW);
+
+
+    SPI.begin(SD_SCLK, SD_MISO, SD_MOSI, SD_CS);
+    if (!SD.begin(SD_CS)) {
+        Serial.println("SDCard MOUNT FAIL");
+    } else {
+        uint32_t cardSize = SD.cardSize() / (1024 * 1024);
+        String str = "SDCard Size: " + String(cardSize) + "MB";
+        Serial.println(str);
+    }
 
     DBG("Wait...");
 
