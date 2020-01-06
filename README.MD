@@ -5,6 +5,9 @@
 
 ![](image/PINOUT.jpg)
 
+### Dimensions
+![](image/Dimensions.png)
+
 
 ## Examples
 - Arduino + TinyGSM library: [/examples/Arduino_TinyGSM](/examples/Arduino_TinyGSM)
