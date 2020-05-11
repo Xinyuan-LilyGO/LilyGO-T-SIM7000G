@@ -11,7 +11,7 @@
 
 ## Examples
 - Arduino + TinyGSM library: [/examples/Arduino_TinyGSM](/examples/Arduino_TinyGSM)
-- Arduino + SIM7000 library: [/examples/Arduino_sim7000](/examples/Arduino_sim7000)
+- Platformio_Arduino_Thingsboard :[/exaples/Platformio_Arduino_Thingsboard](/exaples/Platformio_Arduino_Thingsboard)
 
 
 
