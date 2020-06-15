@@ -35,7 +35,7 @@
 // Set SIM7000G GPIO4 HIGH ,Open GPS power
 modem.sendAT("+SGPIO=0,4,1,1");
 
-// Set SIM7000G GPIO4 HIGH ,Close GPS power
+// Set SIM7000G GPIO4 LOW ,Close GPS power
 modem.sendAT("+SGPIO=0,4,1,0");
 ```
 
