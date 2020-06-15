@@ -19,7 +19,7 @@ Two main versions of the LilyGo SIM7000G have been released
 
 |                                    Examples                                     |                                  Product  Link                                  |                     Schematic                      | Status |
 | :-----------------------------------------------------------------------------: | :-----------------------------------------------------------------------------: | :------------------------------------------------: | :----: |
-| [Click to view New Version(点击查看)](./Historical/SIM7000G_20200415/README.MD) | [Click to view product link](https://pt.aliexpress.com/item/4000542688096.html) | [Click to view](./schematic/SIM7000G_20200415.pdf) |   ✅    |
-| [Click to view Old Version(点击查看)](./Historical/SIM7000G_20191227/README.MD) |                                    Obsolete                                     | [Click to view](./schematic/SIM7000G_20191227.pdf) |   ❌    |
+| [Click to view Version 20200415 (点击查看)](./Historical/SIM7000G_20200415/README.MD) | [Click to view product link](https://pt.aliexpress.com/item/4000542688096.html) | [Click to view](./schematic/SIM7000G_20200415.pdf) |   ✅    |
+| [Click to view Version 20191227 (点击查看)](./Historical/SIM7000G_20191227/README.MD) |                                    Obsolete                                     | [Click to view](./schematic/SIM7000G_20191227.pdf) |   ❌    |
 
 
