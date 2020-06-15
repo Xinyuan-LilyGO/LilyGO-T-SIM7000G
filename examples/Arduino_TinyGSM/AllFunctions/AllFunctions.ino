@@ -50,11 +50,12 @@ TinyGsm modem(SerialAT);
 #define uS_TO_S_FACTOR 1000000ULL  /* Conversion factor for micro seconds to seconds */
 #define TIME_TO_SLEEP  60        /* Time ESP32 will go to sleep (in seconds) */
 
-
+#define UART_BAUD   115200
+#define PIN_DTR     25
 #define PIN_TX      27
 #define PIN_RX      26
-#define UART_BAUD   115200
 #define PWR_PIN     4
+
 #define SD_MISO     2
 #define SD_MOSI     15
 #define SD_SCLK     14
@@ -135,22 +136,6 @@ void setup()
         delay(500);
     } while (res != "OK");
 
-#if 0
-    while (1) {
-
-        while (SerialAT.available()) {
-            /* code */
-            Serial.write(SerialAT.read());
-        }
-        while (Serial.available()) {
-            /* code */
-            SerialAT.write(Serial.read());
-        }
-    }
-#endif
-
-
-
 }
 
 void loop()
@@ -209,6 +194,7 @@ void loop()
 #if TINY_GSM_TEST_GPS
     // Set SIM7000G GPIO4 HIGH ,Open GPS power
     // CMD:AT+SGPIO=0,4,1,1
+    // Only in version 20200415 is there a function to control GPS power
     modem.sendAT("+SGPIO=0,4,1,1");
 
     modem.enableGPS();
@@ -227,6 +213,7 @@ void loop()
 
     // Set SIM7000G GPIO4 HIGH ,Close GPS power
     // CMD:AT+SGPIO=0,4,1,0
+    // Only in version 20200415 is there a function to control GPS power
     modem.sendAT("+SGPIO=0,4,1,0");
 #endif
 
