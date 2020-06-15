@@ -2,7 +2,7 @@
 
 # versions
 Two main versions of the LilyGo SIM7000G have been released
- - 20200415
+#### Version 20200415
 
    This board is an improvement of the original with fixes added that where recommended from feedback.
 1. Added active GPS antenna power control, when the module GPIO4 is not turned on the antenna consumes only the static current of the LDO.
@@ -11,7 +11,7 @@ Two main versions of the LilyGo SIM7000G have been released
 4. Added battery overcharge protection
 5. Added battery over-discharge protection
 
- - 20191227
+ ### Version 20191227
  
    First board release
    
