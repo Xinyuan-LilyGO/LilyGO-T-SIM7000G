@@ -1,7 +1,6 @@
 <h1 align = "center">LilyGo SIM7000G</h1>
 
-# versions
-Two main versions of the LilyGo SIM7000G have been released
+Two main versions of the LilyGo SIM7000G have been released with the current board having better power managment than the old board.
 ### Version 20200415
 
    This board is an improvement of the original with fixes added that where recommended from feedback.
