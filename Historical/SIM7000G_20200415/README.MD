@@ -11,7 +11,7 @@
 
 ## Examples
 - Arduino + TinyGSM library: [examples/Arduino_TinyGSM](../../examples/Arduino_TinyGSM/)
-- Platformio_Arduino_Thingsboard :[/exaples/Platformio_Arduino_Thingsboard](../../exaples/Platformio_Arduino_Thingsboard)
+- Platformio_Arduino_Thingsboard :[/exaples/Platformio_Arduino_Thingsboard](../../examples/Platformio_Arduino_Thingsboard)
 
 
 ## SIM7000G connection
