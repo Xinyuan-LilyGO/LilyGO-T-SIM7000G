@@ -12,7 +12,7 @@
 ## Examples
 - Arduino + TinyGSM library: [examples/Arduino_TinyGSM](../../examples/Arduino_TinyGSM/)
 - Platformio_Arduino_Thingsboard :[/exaples/Platformio_Arduino_Thingsboard](../../examples/Platformio_Arduino_Thingsboard)
-
+- Loboris Micropython: [/examples/MicroPython_LoBo](../../examples/MicroPython_LoBo)
 
 ## SIM7000G connection
 | Name           | Pins  |
@@ -28,6 +28,7 @@
 | SD MOSI        | 15    |
 | SD CLK         | 14    |
 | SD CS          | 13    |
+| LED            | 12    |
 
 **Modem GPS** is the internal GPIO of the SIM7000G module. When using GPS, GPIO4 needs to be set to high level, as shown below:
 
