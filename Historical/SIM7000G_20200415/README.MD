@@ -41,4 +41,9 @@ modem.sendAT("+SGPIO=0,4,1,1");
 modem.sendAT("+SGPIO=0,4,1,0");
 ```
 
+- About the onboard indicator light description:
+1. In the pin diagram, the red indicator light near the upper right of the switch is only on when the battery is connected, and it is always on when the USB is connected. It indicates that the battery is charging. If the battery is not connected, it may be Flashing
+2. Below the red light is the green indicator light, which lights up only when the battery is fully charged, and it is always on when the battery is connected
 
+3. Close to the side of the SIM7000G antenna is the status indicator. If the SIM7000G starts normally, it will always be on. If it does not start normally, it will not be on. It cannot be turned off by software.
+4. Close to the status indicator is the network indicator, it indicates the network status, it can be closed by software
