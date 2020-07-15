@@ -31,15 +31,16 @@ void modem_on() {
 
   int i = 10;
   delay(10000);
-  Serial.println("\nTesting Modem Response...");
+  Serial.println("\nTesting Modem Response...\n");
   while (i) {
     SerialAT.println("AT");
+    delay(100);
     if (SerialAT.available()) {
       String r = SerialAT.readString();
       Serial.println(r);
       if ( r.indexOf("OK") >= 0 ) break;;
     }
-    delay(1000);
+    delay(900);
     i--;
   }
 }
