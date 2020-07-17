@@ -8,6 +8,9 @@
 #define TINY_GSM_RX_BUFFER 1024 // Set RX buffer to 1Kb
 #define SerialAT Serial1
 
+// See all AT commands, if wanted  
+// #define DUMP_AT_COMMANDS 
+
 /*
    Tests enabled
 */
@@ -28,7 +31,13 @@ const char gprsPass[] = "";
 #include <SD.h>
 #include <Ticker.h>
 
+#ifdef DUMP_AT_COMMANDS  
+#include <StreamDebugger.h> 
+StreamDebugger debugger(SerialAT, Serial); 
+TinyGsm modem(debugger);  
+#else 
 TinyGsm modem(SerialAT);
+#endif
 
 #define uS_TO_S_FACTOR 1000000ULL  // Conversion factor for micro seconds to seconds
 #define TIME_TO_SLEEP  60          // Time ESP32 will go to sleep (in seconds)
@@ -78,8 +87,7 @@ void setup() {
   // To skip it, call init() instead of restart()
   Serial.println("Initializing modem...");
   if (!modem.restart()) {
-    Serial.println("Failed to restart modem, delaying 10s and retrying");
-    // return;
+    Serial.println("Failed to restart modem, attempting to continue without restarting");
   }
 
   String name = modem.getModemName();
