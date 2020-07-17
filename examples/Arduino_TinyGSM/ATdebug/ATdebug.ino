@@ -1,7 +1,7 @@
 /*
-  This can be used to test AT commands
-  and communicate directly with the Module.
-
+  FILE: ATdebug.ino
+  AUTHOR: Koby Hale
+  PURPOSE: test AT commands
   List of SIM7000 AT commands can be found here
   http://www.microchip.ua/simcom/LTE/SIM7000/SIM7000%20Series_AT%20Command%20Manual_V1.05.pdf
 */
