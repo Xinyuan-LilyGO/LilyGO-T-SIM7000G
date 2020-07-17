@@ -1,5 +1,5 @@
 /*
-  FILE: ATdebug.ino
+  FILE: ResetModem.ino
   AUTHOR: Koby Hale
   PURPOSE: reset the SIM7000
  */
