@@ -1,13 +1,18 @@
+/*
+  FILE: ResetModem.ino
+  AUTHOR: Koby Hale
+  PURPOSE: reset the SIM7000
+ */
+
 #define TINY_GSM_MODEM_SIM800 // sim800 and sim7000 are very identical, no sim7000 reset tool yet but sim800 works
 
 #include <TinyGsmClient.h>
 
 // Define pins
-#define MODEM_RST     5
-#define MODEM_PWKEY   4
-#define MODEM_DTR     25
-#define MODEM_TX      27
-#define MODEM_RX      26
+#define PIN_DTR     25
+#define PIN_TX      27
+#define PIN_RX      26
+#define PWR_PIN     4
 
 // Set serial for debug console (to the Serial Monitor, speed 9600)
 #define SerialMon Serial
@@ -15,8 +20,8 @@
 // Set serial for AT commands (to the module)
 #define SerialAT Serial1
 
-// Uncomment to see all AT commands, if wanted
-// #define DUMP_AT_COMMANDS
+// See all AT commands, if wanted
+ #define DUMP_AT_COMMANDS
 
 #ifdef DUMP_AT_COMMANDS
   #include <StreamDebugger.h>
@@ -32,17 +37,31 @@ void setup() {
   delay(10);
 
   // Start GSM module
-  pinMode(MODEM_PWKEY, OUTPUT);
-  digitalWrite(MODEM_PWKEY, HIGH);
-  delay(10);
-  digitalWrite(MODEM_PWKEY, LOW);
-  delay(1010); //Ton 1sec
-  digitalWrite(MODEM_PWKEY, HIGH);
-  delay(4510);
+  pinMode(PWR_PIN, OUTPUT);
+  digitalWrite(PWR_PIN, HIGH);
+  delay(300);
+  digitalWrite(PWR_PIN, LOW);
 
   // Set baud rate
-  SerialAT.begin(9600, SERIAL_8N1, MODEM_RX, MODEM_TX);
-  delay(6000);
+  SerialAT.begin(9600, SERIAL_8N1, PIN_RX, PIN_TX);
+  
+  //Wait for the SIM7000 communication to be normal, and will quit when receiving any byte
+  int i = 10;
+  delay(5000);
+  Serial.println("\nTesting Modem Response\n");
+  Serial.println("****");
+  while (i) {
+    SerialAT.println("AT");
+    delay(500);
+    if (SerialAT.available()) {
+        String r = SerialAT.readString();
+        Serial.println(r);
+        if ( r.indexOf("OK") >= 0 ) break;;
+    }
+    delay(500);
+    i--;
+  }
+  Serial.println("****\n");
 
   bool ret = modem.factoryDefault();
 

@@ -1,9 +1,9 @@
 /*
-  This can be used to test AT commands
-  and communicate directly with the Module.
-
+  FILE: ATdebug.ino
+  AUTHOR: Koby Hale
+  PURPOSE: test AT commands
   List of SIM7000 AT commands can be found here
-  http://www.microchip.ua/simcom/LTE/SIM7000/SIM7000%20Series_AT%20Command%20Manual_V1.04.pdf
+  http://www.microchip.ua/simcom/LTE/SIM7000/SIM7000%20Series_AT%20Command%20Manual_V1.05.pdf
 */
 
 #define TINY_GSM_MODEM_SIM7000
@@ -24,23 +24,21 @@ void modem_on() {
   Serial.println("\nStarting Up Modem...");
   pinMode(PWR_PIN, OUTPUT);
   digitalWrite(PWR_PIN, HIGH);
-  delay(10);
+  delay(300);
   digitalWrite(PWR_PIN, LOW);
-  delay(1010);
-  digitalWrite(PWR_PIN, HIGH);
 
   int i = 10;
   delay(10000);
   Serial.println("\nTesting Modem Response...\n");
   while (i) {
     SerialAT.println("AT");
-    delay(100);
+    delay(500);
     if (SerialAT.available()) {
       String r = SerialAT.readString();
       Serial.println(r);
       if ( r.indexOf("OK") >= 0 ) break;;
     }
-    delay(900);
+    delay(500);
     i--;
   }
 }
@@ -58,7 +56,7 @@ void setup() {
   SerialMon.println(F(" If it doesn't work, select \"Both NL & CR\" in Serial Monitor"));
   SerialMon.println(F(" DISCLAIMER: Entering AT commands without knowing what they do"));
   SerialMon.println(F(" can have undesired consiquinces..."));
-  SerialMon.println(F("***********************************************************"));
+  SerialMon.println(F("***********************************************************\n"));
 }
 
 void loop() {
