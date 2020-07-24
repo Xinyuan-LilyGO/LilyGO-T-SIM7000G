@@ -10,6 +10,8 @@
 
 // See all AT commands, if wanted  
 // #define DUMP_AT_COMMANDS 
+// See all AT commands, if wanted
+// #define DUMP_AT_COMMANDS
 
 /*
    Tests enabled
@@ -32,10 +34,10 @@ const char gprsPass[] = "";
 #include <Ticker.h>
 
 #ifdef DUMP_AT_COMMANDS  // if enabled it requires the streamDebugger lib
-#include <StreamDebugger.h> 
-StreamDebugger debugger(SerialAT, Serial); 
-TinyGsm modem(debugger);  
-#else 
+#include <StreamDebugger.h>
+StreamDebugger debugger(SerialAT, Serial);
+TinyGsm modem(debugger);
+#else
 TinyGsm modem(SerialAT);
 #endif
 
