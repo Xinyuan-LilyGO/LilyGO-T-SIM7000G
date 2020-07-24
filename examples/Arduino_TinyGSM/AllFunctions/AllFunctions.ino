@@ -31,7 +31,7 @@ const char gprsPass[] = "";
 #include <SD.h>
 #include <Ticker.h>
 
-#ifdef DUMP_AT_COMMANDS  
+#ifdef DUMP_AT_COMMANDS  // if enabled it requires the streamDebugger lib
 #include <StreamDebugger.h> 
 StreamDebugger debugger(SerialAT, Serial); 
 TinyGsm modem(debugger);  
@@ -79,7 +79,7 @@ void setup() {
 
   Serial.println("\nWait...");
 
-  delay(5000);
+  delay(10000);
 
   SerialAT.begin(UART_BAUD, SERIAL_8N1, PIN_RX, PIN_TX);
 
@@ -95,6 +95,11 @@ void setup() {
 
   String modemInfo = modem.getModemInfo();
   Serial.println("Modem Info: " + modemInfo);
+
+  // Set SIM7000G GPIO4 HIGH ,Close GPS power
+  // CMD:AT+SGPIO=0,4,1,0
+  // Only in version 20200415 is there a function to control GPS power
+  modem.sendAT("+SGPIO=0,4,1,0");
 
 #if TINY_GSM_TEST_GPRS
   // Unlock your SIM card with a PIN if needed
@@ -128,7 +133,7 @@ void setup() {
 }
 
 void loop() {
-
+#if TINY_GSM_TEST_GPRS
   Serial.println("Waiting for network...");
   if (!modem.waitForNetwork()) {
     delay(10000);
@@ -139,7 +144,6 @@ void loop() {
     Serial.println("Network connected");
   }
 
-#if TINY_GSM_TEST_GPRS
   Serial.println("\n---Starting GPRS TEST---\n");
   Serial.println("Connecting to: " + String(apn));
   if (!modem.gprsConnect(apn, gprsUser, gprsPass)) {
