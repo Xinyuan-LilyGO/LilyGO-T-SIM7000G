@@ -98,7 +98,7 @@ void setup() {
   String modemInfo = modem.getModemInfo();
   Serial.println("Modem Info: " + modemInfo);
 
-  // Set SIM7000G GPIO4 HIGH ,Close GPS power
+  // Set SIM7000G GPIO4 LOW ,turn off GPS power
   // CMD:AT+SGPIO=0,4,1,0
   // Only in version 20200415 is there a function to control GPS power
   modem.sendAT("+SGPIO=0,4,1,0");
@@ -202,7 +202,7 @@ void loop() {
 
 #if TINY_GSM_TEST_GPS
   Serial.println("\n---Starting GPS TEST---\n");
-  // Set SIM7000G GPIO4 HIGH ,Open GPS power
+  // Set SIM7000G GPIO4 HIGH ,turn on GPS power
   // CMD:AT+SGPIO=0,4,1,1
   // Only in version 20200415 is there a function to control GPS power
   modem.sendAT("+SGPIO=0,4,1,1");
@@ -221,7 +221,7 @@ void loop() {
   }
   modem.disableGPS();
 
-  // Set SIM7000G GPIO4 HIGH ,Close GPS power
+  // Set SIM7000G GPIO4 LOW ,turn off GPS power
   // CMD:AT+SGPIO=0,4,1,0
   // Only in version 20200415 is there a function to control GPS power
   modem.sendAT("+SGPIO=0,4,1,0");
