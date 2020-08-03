@@ -8,8 +8,6 @@
 #define TINY_GSM_RX_BUFFER 1024 // Set RX buffer to 1Kb
 #define SerialAT Serial1
 
-// See all AT commands, if wanted  
-// #define DUMP_AT_COMMANDS 
 // See all AT commands, if wanted
 // #define DUMP_AT_COMMANDS
 
@@ -56,6 +54,11 @@ TinyGsm modem(SerialAT);
 #define SD_CS       13
 #define LED_PIN     12
 
+
+int counter, lastIndex, numberOfPieces = 24;
+String pieces[24], input;
+
+
 void setup() {
   // Set console baud rate
   Serial.begin(9600);
@@ -93,9 +96,11 @@ void setup() {
   }
 
   String name = modem.getModemName();
+  delay(500);
   Serial.println("Modem Name: " + name);
 
   String modemInfo = modem.getModemInfo();
+  delay(500);
   Serial.println("Modem Info: " + modemInfo);
 
   // Set SIM7000G GPIO4 LOW ,turn off GPS power
@@ -136,7 +141,52 @@ void setup() {
 
 void loop() {
 #if TINY_GSM_TEST_GPRS
-  Serial.println("Waiting for network...");
+
+  SerialAT.println("AT+CGDCONT?");
+  delay(500);
+  if (SerialAT.available()) {
+    input = SerialAT.readString();
+    for (int i = 0; i < input.length(); i++) {
+      if (input.substring(i, i + 1) == "\n") {
+        pieces[counter] = input.substring(lastIndex, i);
+        lastIndex = i + 1;
+        counter++;
+      }
+      if (i == input.length() - 1) {
+        pieces[counter] = input.substring(lastIndex, i);
+      }
+    }
+    // Reset for reuse
+    input = "";
+    counter = 0;
+    lastIndex = 0;
+
+    for ( int y = 0; y < numberOfPieces; y++) {
+      for ( int x = 0; x < pieces[y].length(); x++) {
+        char c = pieces[y][x];  //gets one byte from buffer
+        if (c == ',') {
+          if (input.indexOf(": ") >= 0) {
+            String data = input.substring((input.indexOf(": ") + 1));
+            if ( data.toInt() > 0 && data.toInt() < 25) {
+              modem.sendAT("+CGDCONT=" + String(data.toInt()) + ",\"IP\",\"" + String(apn) + "\",\"0.0.0.0\",0,0,0,0");
+            }
+            input = "";
+            break;
+          }
+          // Reset for reuse
+          input = "";
+        }
+        else {
+          input += c;
+        }
+      }
+    }
+  } else {
+    Serial.println("Failed to get PDP!");
+  }
+
+
+  Serial.println("\n\n\nWaiting for network...");
   if (!modem.waitForNetwork()) {
     delay(10000);
     return;
@@ -175,19 +225,13 @@ void loop() {
   int csq = modem.getSignalQuality();
   Serial.println("Signal quality: " + String(csq));
 
-  delay(2000);
-  int i = 10;
-  while (i) {
-    SerialAT.println("AT+CPSI?");     //Get connection type and band
-    delay(500);
-    if (SerialAT.available()) {
-      String r = SerialAT.readString();
-      Serial.println(r);
-      if ( r.indexOf("OK") >= 0 ) break;;
-    }
-    delay(500);
-    i--;
+  SerialAT.println("AT+CPSI?");     //Get connection type and band
+  delay(500);
+  if (SerialAT.available()) {
+    String r = SerialAT.readString();
+    Serial.println(r);
   }
+
   Serial.println("\n---End of GPRS TEST---\n");
 #endif
 
