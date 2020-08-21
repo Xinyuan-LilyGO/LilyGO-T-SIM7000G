@@ -11,4 +11,4 @@ Sometimes (especially if you played with AT commands), your module configuration
 - Can't connect to the server
 - Sent/received data contains invalid bytes
 - etc.
-To return module to Factory Defaults, use the ModemReset sketch.
+To return module to Factory Defaults, use the ResetModem sketch.
