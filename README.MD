@@ -16,10 +16,10 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
    
 <h2 align = "left">Product 📷:</h2>
 
-|                                    Examples                                     |                                  Product  Link                                  |                     Schematic                      | Status |
-| :-----------------------------------------------------------------------------: | :-----------------------------------------------------------------------------: | :------------------------------------------------: | :----: |
+|                                Examples                                 |                           Product  Link                            |                    Schematic                     | Status |
+| :---------------------------------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------: | :----: |
 | [Version 20200415 (点击查看)](./Historical/SIM7000G_20200415/README.MD) | [Product link](https://www.aliexpress.com/item/4000542688096.html) | [New Version](./schematic/SIM7000G_20200415.pdf) |   ✅    |
-| [Version 20191227 (点击查看)](./Historical/SIM7000G_20191227/README.MD) |                                    Obsolete                                     | [Old Version](./schematic/SIM7000G_20191227.pdf) |   ❌    |
+| [Version 20191227 (点击查看)](./Historical/SIM7000G_20191227/README.MD) |                              Obsolete                              | [Old Version](./schematic/SIM7000G_20191227.pdf) |   ❌    |
 
 
 
@@ -39,5 +39,5 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
 
 7. On Version 20200415, When using GPS the sim7000 GPIO4 needs to be set to HIGH to enable the antenna `modem.sendAT("+SGPIO=0,4,1,1");` once finished the pin can be set LOW `modem.sendAT("+SGPIO=0,4,1,0");` to prevent power leaking to the GPS antenna, This will make help battery life. If using USB or battery life is not a concern, it can be left HIGH.
 
-
+8. If you are unable to access the network, please try <examples/Arduino_NetworkTest>, which will test the network connection. There are also binary files in the firmware directory, you can use the [Flash Download Tools](https://www.espressif.com/sites/default/files/tools/flash_download_tool_v3.8.5.zip) to download.
 
