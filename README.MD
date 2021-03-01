@@ -45,3 +45,7 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
    - For example, the `Arduino_TinyGSM/AllFunctions.ino`  , you only need to change `modem.setNetworkMode(38);` to the corresponding number, and your network access speed depends on the carrier of the SIM card you use. Before using it, you can communicate with the operator of your SIM card.
    - The effect is as follows:
    ![](image/LTE.png)
+
+9. How to update firmware?
+
+   [Upgrade guidelines ](docs/How%20to%20update%20firmware.md)
