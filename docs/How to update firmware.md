@@ -51,7 +51,7 @@
 
 
 ## Resources 
-- [SIM7000G FW](https://1drv.ms/u/s!AmbpOqVezk5drSysFSgYu6bGRKy3?e=al2Ioh)
+- [SIM7000G FW](https://1drv.ms/u/s!AmbpOqVezk5drSmGqHKQmMv23MPq?e=5FdDy6)
 - [SIM7000X FlashTools](https://1drv.ms/u/s!AmbpOqVezk5drS1BascoH0_8EjTT?e=um3Q6A)
 - [SIM7000X Dirver](https://1drv.ms/u/s!AmbpOqVezk5drS-ateuVXXDK1ulv?e=PN9QdC)
 
