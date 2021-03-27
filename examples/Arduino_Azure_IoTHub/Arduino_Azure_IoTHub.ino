@@ -1,4 +1,5 @@
-/*
+/* ejri
+
 // This code: connecting 5 accelerometers to esp32. 
 
 The processed data is sent to IoT Hub over LTE Cat-M. 
