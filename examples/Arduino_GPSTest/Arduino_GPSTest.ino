@@ -55,6 +55,7 @@ void enableGPS(void)
     // CMD:AT+SGPIO=0,4,1,1
     // Only in version 20200415 is there a function to control GPS power
     modem.sendAT("+SGPIO=0,4,1,1");
+    delay(1000);//wait until it get up completely
     modem.enableGPS();
 
 
