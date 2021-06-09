@@ -121,11 +121,11 @@ void setup() {
     38 LTE only
     51 GSM and LTE only
   * * * */
-  String res;
+  bool res;
   do {
     res = modem.setNetworkMode(38);
     delay(500);
-  } while (res != "OK");
+  } while (res != true);
 
   /*
     1 CAT-M
@@ -135,7 +135,7 @@ void setup() {
   do {
     res = modem.setPreferredMode(1);
     delay(500);
-  } while (res != "OK");
+  } while (res != true);
 
 }
 
