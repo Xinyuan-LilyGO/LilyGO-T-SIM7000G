@@ -61,7 +61,7 @@ String pieces[24], input;
 
 void setup() {
   // Set console baud rate
-  Serial.begin(9600);
+  Serial.begin(115200);
   delay(10);
 
   // Set LED OFF
@@ -107,6 +107,9 @@ void setup() {
   // CMD:AT+SGPIO=0,4,1,0
   // Only in version 20200415 is there a function to control GPS power
   modem.sendAT("+SGPIO=0,4,1,0");
+    if (modem.waitResponse(10000L) != 1) {
+        DBG(" SGPIO=0,4,1,0 false ");
+    }
 
 #if TINY_GSM_TEST_GPRS
   // Unlock your SIM card with a PIN if needed
@@ -121,21 +124,24 @@ void setup() {
     38 LTE only
     51 GSM and LTE only
   * * * */
-  String res;
-  do {
-    res = modem.setNetworkMode(38);
-    delay(500);
-  } while (res != "OK");
-
+ 
+    modem.setPreferredMode(1);
+    if (modem.waitResponse(1000L) != 1) {
+            return ;
+        }
   /*
     1 CAT-M
     2 NB-Iot
     3 CAT-M and NB-IoT
   * * */
-  do {
+  /*do {
     res = modem.setPreferredMode(1);
     delay(500);
-  } while (res != "OK");
+  } while (res != "OK");*/
+   modem.setPreferredMode(1);
+    if (modem.waitResponse(1000L) != 1) {
+            return ;
+        }
 
 }
 
@@ -250,7 +256,9 @@ void loop() {
   // CMD:AT+SGPIO=0,4,1,1
   // Only in version 20200415 is there a function to control GPS power
   modem.sendAT("+SGPIO=0,4,1,1");
-
+    if (modem.waitResponse(10000L) != 1) {
+        DBG(" SGPIO=0,4,1,1 false ");
+    }
   modem.enableGPS();
   float lat,  lon;
   while (1) {
@@ -269,6 +277,9 @@ void loop() {
   // CMD:AT+SGPIO=0,4,1,0
   // Only in version 20200415 is there a function to control GPS power
   modem.sendAT("+SGPIO=0,4,1,0");
+  if (modem.waitResponse(10000L) != 1) {
+        DBG(" SGPIO=0,4,1,0 false ");
+    }
   Serial.println("\n---End of GPRS TEST---\n");
 #endif
 
