@@ -45,8 +45,8 @@ void modem_on() {
 }
 
 void setup() {
-  Serial.begin(9600); // Set console baud rate
-  SerialAT.begin(9600, SERIAL_8N1, PIN_RX, PIN_TX);
+  Serial.begin(115200); // Set console baud rate
+  SerialAT.begin(115200, SERIAL_8N1, PIN_RX, PIN_TX);
   delay(100);
 
   modem_on();

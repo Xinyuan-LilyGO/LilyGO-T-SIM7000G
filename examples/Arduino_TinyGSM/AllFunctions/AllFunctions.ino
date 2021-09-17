@@ -9,7 +9,7 @@
 #define SerialAT Serial1
 
 // See all AT commands, if wanted
-// #define DUMP_AT_COMMANDS
+ #define DUMP_AT_COMMANDS
 
 /*
    Tests enabled
@@ -42,7 +42,7 @@ TinyGsm modem(SerialAT);
 #define uS_TO_S_FACTOR 1000000ULL  // Conversion factor for micro seconds to seconds
 #define TIME_TO_SLEEP  60          // Time ESP32 will go to sleep (in seconds)
 
-#define UART_BAUD   9600
+#define UART_BAUD   115200
 #define PIN_DTR     25
 #define PIN_TX      27
 #define PIN_RX      26
@@ -84,7 +84,7 @@ void setup() {
 
   Serial.println("\nWait...");
 
-  delay(10000);
+  delay(1000);
 
   SerialAT.begin(UART_BAUD, SERIAL_8N1, PIN_RX, PIN_TX);
 
@@ -92,6 +92,30 @@ void setup() {
   // To skip it, call init() instead of restart()
   Serial.println("Initializing modem...");
   if (!modem.restart()) {
+    Serial.println("Failed to restart modem, attempting to continue without restarting");
+  }
+
+
+     modem.sendAT("+CFUN=0 ");
+    if (modem.waitResponse(10000L) != 1) {
+        DBG(" +CFUN=0  false ");
+    }
+
+           modem.sendAT("+CFUN=1 ");
+    if (modem.waitResponse(10000L) != 1) {
+        DBG(" +CFUN=1  false ");
+    }
+
+
+}
+
+void loop() {
+
+  
+  // Restart takes quite some time
+  // To skip it, call init() instead of restart()
+  Serial.println("Initializing modem...");
+  if (!modem.init()) {
     Serial.println("Failed to restart modem, attempting to continue without restarting");
   }
 
@@ -124,28 +148,25 @@ void setup() {
     38 LTE only
     51 GSM and LTE only
   * * * */
- 
-    modem.setPreferredMode(1);
-    if (modem.waitResponse(1000L) != 1) {
+  String res;
+   res = modem.setNetworkMode(38);
+   if (res != "1") {
+      DBG("setNetworkMode  false ");
             return ;
         }
+
   /*
     1 CAT-M
     2 NB-Iot
     3 CAT-M and NB-IoT
   * * */
-  /*do {
-    res = modem.setPreferredMode(1);
-    delay(500);
-  } while (res != "OK");*/
-   modem.setPreferredMode(1);
-    if (modem.waitResponse(1000L) != 1) {
+   res = modem.setPreferredMode(2);
+   if (res != "1") {
+
+     DBG("setPreferredMode  false ");
             return ;
         }
 
-}
-
-void loop() {
 #if TINY_GSM_TEST_GPRS
 
   SerialAT.println("AT+CGDCONT?");
