@@ -41,11 +41,14 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
 
 8. If you are unable to access the network, please try <examples/Arduino_NetworkTest>, which will test the network connection. There are also binary files in the firmware directory, you can use the [Flash Download Tools](https://www.espressif.com/sites/default/files/tools/flash_download_tool_v3.8.5.zip) to download.
 
-8. How to change the connection method?
+9. How to change the connection method?
    - For example, the `Arduino_TinyGSM/AllFunctions.ino`  , you only need to change `modem.setNetworkMode(38);` to the corresponding number, and your network access speed depends on the carrier of the SIM card you use. Before using it, you can communicate with the operator of your SIM card.
    - The effect is as follows:
    ![](image/LTE.png)
 
-9. How to update firmware?
+10. The initial network registration may be slow. Please be patient.
+    
+11. How to update firmware?
 
    [Upgrade guidelines ](docs/How%20to%20update%20firmware.md)
+
