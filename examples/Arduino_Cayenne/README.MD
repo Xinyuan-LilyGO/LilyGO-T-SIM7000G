@@ -18,6 +18,15 @@
 6. A temporary widget will be automatically generated in the Cayenne Dashboard. To make the widget permanent click the plus sign on the widget.
 7. By default, GSM is used to upload sensor data. You can also change it to ESP32 to upload. You only need to host the **USE_GSM** macro in the sketch.
 
+# Hardware
+Connections for T-SIM7000 and BMP180
+| T-SIM7000 pin | BMP180 pin |
+| ------------- | ---------- |
+| 3.3           | VIN        |
+| GND           | GND        |
+| GPIO21(SDA)   | SDA        |
+| GPIO22(SCL)   | SCL        |
+
 
 
 

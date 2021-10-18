@@ -110,7 +110,6 @@ void setup() {
 }
 
 void loop() {
-
   
   // Restart takes quite some time
   // To skip it, call init() instead of restart()
@@ -308,6 +307,10 @@ void loop() {
 #if TINY_GSM_POWERDOWN
   // Try to power-off (modem may decide to restart automatically)
   // To turn off modem completely, please use Reset/Enable pins
+    modem.sendAT("+CPOWD=1");
+  if (modem.waitResponse(10000L) != 1) {
+        DBG("+CPOWD=1");
+    }
   modem.poweroff();
   Serial.println("Poweroff.");
 #endif
