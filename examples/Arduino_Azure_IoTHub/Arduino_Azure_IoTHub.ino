@@ -410,8 +410,8 @@ void wait_till_ready() // NOT WORKING - Attempt to minimize waiting time
 /*  "HostName=<host_name>;DeviceId=<device_id>;SharedAccessKey=<device_key>"                */
 /*  "HostName=<host_name>;DeviceId=<device_id>;SharedAccessSignature=<device_sas_token>"    */
 static const char *connectionString = 
-//const char *messageData = "{\"messageId\":%d, \"Temperature\":%f, \"Humidity\":%f}";
-const char *messageData = "{\"DeviceID\":\"GreenSpaceTree1\",\"TreeType\":\"Cedar\", \"Board\":\"Esp32\", \"GSM_mod\":\"sim7000g\", \"Connect\":\"CatM\" ,\"location\":\"fairview\" ,\"bootCount\":%d, \"roll1\":%d, \"pitch1\":%d, \"yaw1\":%d, \"roll2\":%d, \"pitch2\":%d, \"yaw2\":%d, \"roll3\":%d, \"pitch3\":%d, \"yaw3\":%d, \"roll4\":%d, \"pitch4\":%d, \"yaw4\":%d, \"roll5\":%d, \"pitch5\":%d, \"yaw5\":%d}";
+const char *messageData = "{\"messageId\":%d, \"Temperature\":%f, \"Humidity\":%f}";
+//const char *messageData = "{\"DeviceID\":\"GreenSpaceTree1\",\"TreeType\":\"Cedar\", \"Board\":\"Esp32\", \"GSM_mod\":\"sim7000g\", \"Connect\":\"CatM\" ,\"location\":\"fairview\" ,\"bootCount\":%d, \"roll1\":%d, \"pitch1\":%d, \"yaw1\":%d, \"roll2\":%d, \"pitch2\":%d, \"yaw2\":%d, \"roll3\":%d, \"pitch3\":%d, \"yaw3\":%d, \"roll4\":%d, \"pitch4\":%d, \"yaw4\":%d, \"roll5\":%d, \"pitch5\":%d, \"yaw5\":%d}";
 static bool hasIoTHub = false;
 static bool hasWifi = false;
 int messageCount = 1;
