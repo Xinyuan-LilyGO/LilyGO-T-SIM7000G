@@ -46,7 +46,9 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
    - The effect is as follows:
    ![](image/LTE.png)
 
-10. The initial network registration may be slow. Please be patient.
+10. The initial network registration may be slow. Please be patient. You can configure the locked band as shown in the following figure.
+   ![](image/CBANDCFG.png)
+    
     
 11. How to update firmware?
 
