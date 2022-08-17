@@ -54,5 +54,14 @@
 - [SIM7000G FW](https://1drv.ms/u/s!AmbpOqVezk5drSmGqHKQmMv23MPq?e=5FdDy6)
 - [SIM7000X FlashTools](https://1drv.ms/u/s!AmbpOqVezk5drS1BascoH0_8EjTT?e=um3Q6A)
 - [SIM7000X Dirver](https://1drv.ms/u/s!AmbpOqVezk5drS-ateuVXXDK1ulv?e=PN9QdC)
+- [SIM7070  FlashTools](https://1drv.ms/u/s!AmbpOqVezk5dsHJDMvza3wE8961_?e=sa9zT8)
+- [SIM7070  Dirver](https://1drv.ms/u/s!AmbpOqVezk5dsHJDMvza3wE8961_?e=sa9zT8)
+- [SIM7000G FW](https://1drv.ms/u/s!AmbpOqVezk5dsHJDMvza3wE8961_?e=sa9zT8)
+
+## Note . 
+
+If you need to update the 7070G internal firmware, please select the model below to update
+
+![](../image/7070g.png)
 
 
