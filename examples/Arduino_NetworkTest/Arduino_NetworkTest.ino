@@ -1,3 +1,13 @@
+/**
+ * @file      Arduino_NetworkTest.ino
+ * @author    Lewis He (lewishe@outlook.com)
+ * @license   MIT
+ * @copyright Copyright (c) 2023  Shenzhen Xin Yuan Electronic Technology Co., Ltd
+ * @date      2023-02-01
+ * @note      This example function is the SIM7000/SIM7070 network test to
+ *            determine whether the module can access the network and obtain some access parameters
+ */
+
 // Set serial for debug console (to the Serial Monitor, default speed 115200)
 #define SerialMon Serial
 
@@ -12,14 +22,6 @@
 // See all AT commands, if wanted
 // #define DUMP_AT_COMMANDS
 
-// set GSM PIN, if any
-#define GSM_PIN ""
-
-// Your GPRS credentials, if any
-const char apn[]  = "YOUR-APN";     //SET TO YOUR APN
-const char gprsUser[] = "";
-const char gprsPass[] = "";
-
 #include <TinyGsmClient.h>
 #include <SPI.h>
 #include <SD.h>
@@ -33,9 +35,6 @@ TinyGsm modem(debugger);
 TinyGsm modem(SerialAT);
 #endif
 
-#define uS_TO_S_FACTOR      1000000ULL  // Conversion factor for micro seconds to seconds
-#define TIME_TO_SLEEP       60          // Time ESP32 will go to sleep (in seconds)
-
 #define UART_BAUD           9600
 #define PIN_DTR             25
 #define PIN_TX              27
@@ -47,7 +46,6 @@ TinyGsm modem(SerialAT);
 #define SD_SCLK             14
 #define SD_CS               13
 #define LED_PIN             12
-
 
 void enableGPS(void)
 {
@@ -88,19 +86,10 @@ void modemPowerOff()
 }
 
 
-void modemRestart()
-{
-    modemPowerOff();
-    delay(1000);
-    modemPowerOn();
-}
-
 void setup()
 {
     // Set console baud rate
     SerialMon.begin(115200);
-
-    delay(10);
 
     // Set LED OFF
     pinMode(LED_PIN, OUTPUT);
@@ -108,135 +97,169 @@ void setup()
 
     modemPowerOn();
 
-    Serial.println("========SDCard Detect.======");
     SPI.begin(SD_SCLK, SD_MISO, SD_MOSI);
     if (!SD.begin(SD_CS)) {
-        Serial.println("SDCard MOUNT FAIL");
+        Serial.println("> It looks like you haven't inserted the SD card..");
     } else {
         uint32_t cardSize = SD.cardSize() / (1024 * 1024);
-        String str = "SDCard Size: " + String(cardSize) + "MB";
+        String str = "> SDCard Size: " + String(cardSize) + "MB";
         Serial.println(str);
     }
-    Serial.println("===========================");
 
     SerialAT.begin(UART_BAUD, SERIAL_8N1, PIN_RX, PIN_TX);
 
-
-    Serial.println("/**********************************************************/");
-    Serial.println("To initialize the network test, please make sure your LET ");
-    Serial.println("antenna has been connected to the SIM interface on the board.");
-    Serial.println("/**********************************************************/\n\n");
-
-    delay(10000);
-}
-
-void loop()
-{
-    String res;
-
-    Serial.println("========INIT========");
-
-    if (!modem.init()) {
-        modemRestart();
-        delay(2000);
-        Serial.println("Failed to restart modem, attempting to continue without restarting");
-        return;
+    Serial.println("> Check whether Modem is online");
+    //test modem is online ?
+    uint32_t  timeout = millis();
+    while (!modem.testAT()) {
+        Serial.print(".");
+        if (millis() - timeout > 60000 ) {
+            Serial.println("> It looks like the modem is not responding, trying to restart");
+            modemPowerOff();
+            delay(5000);
+            modemPowerOn();
+            timeout = millis();
+        }
     }
+    Serial.println("\nModem is online");
 
-    Serial.println("========SIMCOMATI======");
-    modem.sendAT("+SIMCOMATI");
-    modem.waitResponse(1000L, res);
-    res.replace(GSM_NL "OK" GSM_NL, "");
+    //test sim card is online ?
+    timeout = millis();
+    Serial.print("> Get SIM card status");
+    while (modem.getSimStatus() != SIM_READY) {
+        Serial.print(".");
+        if (millis() - timeout > 60000 ) {
+            Serial.println("It seems that your SIM card has not been detected. Has it been inserted?");
+            Serial.println("If you have inserted the SIM card, please remove the power supply again and try again!");
+            return;
+        }
+
+    }
+    Serial.println();
+    Serial.println("> SIM card exists");
+
+
+    Serial.println("> /**********************************************************/");
+    Serial.println("> Please make sure that the location has 2G/NB-IOT signal");
+    Serial.println("> SIM7000/SIM707G does not support 4G network. Please ensure that the USIM card you use supports 2G/NB access");
+    Serial.println("> /**********************************************************/");
+
+    String res = modem.getIMEI();
+    Serial.print("IMEI:");
     Serial.println(res);
-    res = "";
-    Serial.println("=======================");
+    Serial.println();
 
-    Serial.println("=====Preferred mode selection=====");
-    modem.sendAT("+CNMP?");
-    if (modem.waitResponse(1000L, res) == 1) {
-        res.replace(GSM_NL "OK" GSM_NL, "");
-        Serial.println(res);
-    }
-    res = "";
-    Serial.println("=======================");
+    /*
+    * Tips:
+    * When you are not sure which method of network access is supported by the network you use,
+    * please use the automatic mode. If you are sure, please change the parameters to speed up the network access
+    * * * * */
 
+    //Set mobile operation band
+    modem.sendAT("+CBAND=ALL_MODE");
+    modem.waitResponse();
 
-    Serial.println("=====Preferred selection between CAT-M and NB-IoT=====");
-    modem.sendAT("+CMNB?");
-    if (modem.waitResponse(1000L, res) == 1) {
-        res.replace(GSM_NL "OK" GSM_NL, "");
-        Serial.println(res);
-    }
-    res = "";
-    Serial.println("=======================");
+    // Args:
+    // 1 CAT-M
+    // 2 NB-IoT
+    // 3 CAT-M and NB-IoT
+    // Set network preferre to auto
+    modem.setPreferredMode(2);
 
-
-    String name = modem.getModemName();
-    Serial.println("Modem Name: " + name);
-
-    String modemInfo = modem.getModemInfo();
-    Serial.println("Modem Info: " + modemInfo);
-
-    // Unlock your SIM card with a PIN if needed
-    if ( GSM_PIN && modem.getSimStatus() != 3 ) {
-        modem.simUnlock(GSM_PIN);
-    }
+    // Args:
+    // 2 Automatic
+    // 13 GSM only
+    // 38 LTE only
+    // 51 GSM and LTE only
+    // Set network mode to auto
+    modem.setNetworkMode(2);
 
 
-    for (int i = 0; i <= 4; i++) {
-        uint8_t network[] = {
-            2,  /*Automatic*/
-            13, /*GSM only*/
-            38, /*LTE only*/
-            51  /*GSM and LTE only*/
-        };
-        Serial.printf("Try %d method\n", network[i]);
-        modem.setNetworkMode(network[i]);
-        delay(3000);
-        bool isConnected = false;
-        int tryCount = 60;
-        while (tryCount--) {
-            int16_t signal =  modem.getSignalQuality();
-            Serial.print("Signal: ");
-            Serial.print(signal);
-            Serial.print(" ");
-            Serial.print("isNetworkConnected: ");
-            isConnected = modem.isNetworkConnected();
-            Serial.println( isConnected ? "CONNECT" : "NO CONNECT");
-            if (isConnected) {
-                break;
+    // Check network signal and registration information
+    Serial.println("> SIM7000/SIM7070 uses automatic mode to access the network. The access speed may be slow. Please wait patiently");
+    RegStatus status;
+    timeout = millis();
+    do {
+        int16_t sq =  modem.getSignalQuality();
+
+        status = modem.getRegistrationStatus();
+
+        if (status == REG_DENIED) {
+            Serial.println("> The SIM card you use has been rejected by the network operator. Please check that the card you use is not bound to a device!");
+            return;
+        } else {
+            Serial.print("Signal:");
+            Serial.println(sq);
+        }
+
+        if (millis() - timeout > 180000 ) {
+            if (sq == 99) {
+                Serial.println("> It seems that there is no signal. Please check whether the"\
+                               "LTE antenna is connected. Please make sure that the location has 2G/NB-IOT signal\n"\
+                               "SIM7000G does not support 4G network. Please ensure that the USIM card you use supports 2G/NB access");
+                return;
             }
-            delay(1000);
-            digitalWrite(LED_PIN, !digitalRead(LED_PIN));
+            timeout = millis();
         }
-        if (isConnected) {
-            break;
-        }
-    }
-    digitalWrite(LED_PIN, HIGH);
 
-    Serial.println();
-    Serial.println("Device is connected .");
-    Serial.println();
+        delay(800);
+    } while (status != REG_OK_HOME && status != REG_OK_ROAMING);
 
-    Serial.println("=====Inquiring UE system information=====");
-    modem.sendAT("+CPSI?");
-    if (modem.waitResponse(1000L, res) == 1) {
-        res.replace(GSM_NL "OK" GSM_NL, "");
+    Serial.println("Obtain the APN issued by the network");
+    modem.sendAT("+CGNAPN");
+    if (modem.waitResponse(3000, res) == 1) {
+        res = res.substring(res.indexOf(",") + 1);
+        res.replace("\"", "");
+        res.replace("\r", "");
+        res.replace("\n", "");
+        res.replace("OK", "");
+        Serial.print("The APN issued by the network is:");
         Serial.println(res);
     }
+
+    modem.sendAT("+CNACT=1");
+    modem.waitResponse();
+
+
+    // res = modem.getLocalIP();
+    modem.sendAT("+CNACT?");
+    if (modem.waitResponse("+CNACT: ") == 1) {
+        modem.stream.read();
+        modem.stream.read();
+        res = modem.stream.readStringUntil('\n');
+        res.replace("\"", "");
+        res.replace("\r", "");
+        res.replace("\n", "");
+        modem.waitResponse();
+        Serial.print("The current network IP address is:");
+        Serial.println(res);
+    }
+
+
+    modem.sendAT("+CPSI?");
+    if (modem.waitResponse("+CPSI: ") == 1) {
+        res = modem.stream.readStringUntil('\n');
+        res.replace("\r", "");
+        res.replace("\n", "");
+        modem.waitResponse();
+        Serial.print("The current network parameter is:");
+        Serial.println(res);
+    }
+
 
     Serial.println("/**********************************************************/");
     Serial.println("After the network test is complete, please enter the  ");
     Serial.println("AT command in the serial terminal.");
     Serial.println("/**********************************************************/\n\n");
 
-    while (1) {
-        while (SerialAT.available()) {
-            SerialMon.write(SerialAT.read());
-        }
-        while (SerialMon.available()) {
-            SerialAT.write(SerialMon.read());
-        }
+}
+
+void loop()
+{
+    while (SerialAT.available()) {
+        SerialMon.write(SerialAT.read());
+    }
+    while (SerialMon.available()) {
+        SerialAT.write(SerialMon.read());
     }
 }
