@@ -54,3 +54,6 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
 
    [Upgrade guidelines ](docs/How%20to%20update%20firmware.md)
 
+12. When you cannot access the network, please run <examples/Arruino_NetworkTest> Test
+
+
