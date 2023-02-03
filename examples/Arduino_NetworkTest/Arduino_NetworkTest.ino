@@ -164,7 +164,12 @@ void setup()
     // 2 NB-IoT
     // 3 CAT-M and NB-IoT
     // Set network preferre to auto
-    modem.setPreferredMode(2);
+    uint8_t perferred = 3;
+    modem.setPreferredMode(perferred);
+
+    if (perferred == 2) {
+        Serial.println("When you select 2, please ensure that your SIM card operator supports NB-IOT");
+    }
 
     // Args:
     // 2 Automatic
@@ -192,7 +197,7 @@ void setup()
             Serial.println(sq);
         }
 
-        if (millis() - timeout > 180000 ) {
+        if (millis() - timeout > 360000 ) {
             if (sq == 99) {
                 Serial.println("> It seems that there is no signal. Please check whether the"\
                                "LTE antenna is connected. Please make sure that the location has 2G/NB-IOT signal\n"\
