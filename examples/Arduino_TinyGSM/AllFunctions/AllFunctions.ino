@@ -148,7 +148,7 @@ void loop()
       51 GSM and LTE only
     * * * */
     String res;
-    res = modem.setNetworkMode(38);
+    res = modem.setNetworkMode(2);
     if (res != "1") {
         DBG("setNetworkMode  false ");
         return ;
@@ -160,7 +160,7 @@ void loop()
       2 NB-Iot
       3 CAT-M and NB-IoT
     * * */
-    res = modem.setPreferredMode(2);
+    res = modem.setPreferredMode(3);
     if (res != "1") {
 
         DBG("setPreferredMode  false ");
