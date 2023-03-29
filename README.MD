@@ -25,7 +25,7 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
 
 ## Notes for new Users
 
-0. SIM7000/SIM707G does not support 4G network. Please ensure that the USIM card you use supports 2G(GSM)/NB-IOT access
+0. SIM7000/SIM707G does not support 4G network. Please ensure that the USIM card you use supports 2G(GSM)/NB-IOT access,SIM7070 positioning and cellular cannot be used simultaneously. Please disconnect the network when positioning, and turn off GPS when connecting to the network
 
 1. pin VIN is a USB input, if a battery is being used to power the device there will be no voltage output from VIN meaning 3.3v is the only power output.
 
