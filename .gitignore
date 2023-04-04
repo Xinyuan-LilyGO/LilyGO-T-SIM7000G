@@ -4,3 +4,4 @@ bin
 .gitignore
 .pio
 build
+script
