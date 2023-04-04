@@ -58,6 +58,13 @@ void enableGPS(void)
     if (modem.waitResponse(10000L) != 1) {
         DBG(" SGPIO=0,4,1,1 false ");
     }
+
+    // SIM7070G use GPIO5
+    modem.sendAT("+SGPIO=0,5,1,1");
+    if (modem.waitResponse(10000L) != 1) {
+        DBG(" SGPIO=0,4,1,1 false ");
+    }
+
     modem.enableGPS();
 
 
@@ -69,6 +76,12 @@ void disableGPS(void)
     // CMD:AT+SGPIO=0,4,1,0
     // Only in version 20200415 is there a function to control GPS power
     modem.sendAT("+SGPIO=0,4,1,0");
+    if (modem.waitResponse(10000L) != 1) {
+        DBG(" SGPIO=0,4,1,0 false ");
+    }
+
+    // SIM7070G use GPIO5
+    modem.sendAT("+SGPIO=0,5,1,0");
     if (modem.waitResponse(10000L) != 1) {
         DBG(" SGPIO=0,4,1,0 false ");
     }
