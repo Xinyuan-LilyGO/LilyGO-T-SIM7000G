@@ -2,3 +2,5 @@ build
 .vscode
 bin
 .gitignore
+.pio
+build
