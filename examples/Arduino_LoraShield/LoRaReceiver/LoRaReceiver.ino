@@ -27,7 +27,7 @@
 
 #define BAND                470E6
 
-SPIClass SPI1(HSPI);
+SPIClass SPIRadio(HSPI);
 
 void setup()
 {
@@ -47,8 +47,8 @@ void setup()
     }
 
     // Specify pin to initialize SPI1
-    SPI1.begin(LORA_SCK, LORA_MISO, LORA_MOSI, LORA_SS);
-    LoRa.setSPI(SPI1);
+    SPIRadio.begin(LORA_SCK, LORA_MISO, LORA_MOSI, LORA_SS);
+    LoRa.setSPI(SPIRadio);
     LoRa.setPins(LORA_SS, LORA_RST, LORA_DI0);
     Serial.printf("Setup Lora freq : %.0f\n", BAND);
     if (!LoRa.begin(BAND)) {
