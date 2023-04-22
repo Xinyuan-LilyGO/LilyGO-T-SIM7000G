@@ -120,12 +120,11 @@ void loop()
     delay(500);
     Serial.println("Modem Info: " + modemInfo);
 
-    // Set SIM7000G GPIO4 LOW ,turn off GPS power
-    // CMD:AT+SGPIO=0,4,1,0
+    // Set Modem GPS Power Control Pin to LOW ,turn off GPS power
     // Only in version 20200415 is there a function to control GPS power
-    modem.sendAT("+SGPIO=0,4,1,0");
+    modem.sendAT("+CGPIO=0,48,1,0");
     if (modem.waitResponse(10000L) != 1) {
-        DBG(" SGPIO=0,4,1,0 false ");
+        DBG("Set GPS Power LOW Failed");
     }
 
 #if TINY_GSM_TEST_GPRS
@@ -290,21 +289,15 @@ void loop()
 
 #if TINY_GSM_TEST_GPS
     Serial.println("\n---Starting GPS TEST---\n");
-    // Set SIM7000G GPIO4 HIGH ,turn on GPS power
-    // CMD:AT+SGPIO=0,4,1,1
+    // Set Modem GPS Power Control Pin to HIGH ,turn on GPS power
     // Only in version 20200415 is there a function to control GPS power
-    modem.sendAT("+SGPIO=0,4,1,1");
+    modem.sendAT("+CGPIO=0,48,1,1");
     if (modem.waitResponse(10000L) != 1) {
-        DBG(" SGPIO=0,4,1,1 false ");
-    }
-
-    // SIM7070G use GPIO5
-    modem.sendAT("+SGPIO=0,5,1,1");
-    if (modem.waitResponse(10000L) != 1) {
-        DBG(" SGPIO=0,4,1,1 false ");
+        DBG("Set GPS Power HIGH Failed");
     }
 
     modem.enableGPS();
+
     float lat,  lon;
     while (1) {
         if (modem.getGPS(&lat, &lon)) {
@@ -318,19 +311,13 @@ void loop()
     }
     modem.disableGPS();
 
-    // Set SIM7000G GPIO4 LOW ,turn off GPS power
-    // CMD:AT+SGPIO=0,4,1,0
+    // Set Modem GPS Power Control Pin to LOW ,turn off GPS power
     // Only in version 20200415 is there a function to control GPS power
-    modem.sendAT("+SGPIO=0,4,1,0");
+    modem.sendAT("+CGPIO=0,48,1,0");
     if (modem.waitResponse(10000L) != 1) {
-        DBG(" SGPIO=0,4,1,0 false ");
+        DBG("Set GPS Power LOW Failed");
     }
 
-    // SIM7070G use GPIO5
-    modem.sendAT("+SGPIO=0,5,1,0");
-    if (modem.waitResponse(10000L) != 1) {
-        DBG(" SGPIO=0,4,1,0 false ");
-    }
     Serial.println("\n---End of GPRS TEST---\n");
 #endif
 

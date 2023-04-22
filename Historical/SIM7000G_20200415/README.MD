@@ -16,29 +16,29 @@
 - Arduino Cayenne: [/examples/Arduino_Cayenne](../../examples/Arduino_Cayenne)
 
 ## SIM7000G connection
-| Name           | Pins  |
-| -------------- | ----- |
-| Modem DTR      | 25    |
-| Modem Rx       | 26    |
-| Modem Tx       | 27    |
-| Modem PowerKey | 4     |
-| Modem GPS      | GPIO4 |
-| BAT ADC        | 35    |
-| SOLAR ADC      | 36    |
-| SD MISO        | 2     |
-| SD MOSI        | 15    |
-| SD CLK         | 14    |
-| SD CS          | 13    |
-| LED            | 12    |
+| Name           | Pins                                                    |
+| -------------- | ------------------------------------------------------- |
+| Modem DTR      | 25                                                      |
+| Modem Rx       | 26                                                      |
+| Modem Tx       | 27                                                      |
+| Modem PowerKey | 4                                                       |
+| Modem GPS      | SIM7000G(GPIO4)/SIM7070G(GPIO5)(Physical pin number 48) |
+| BAT ADC        | 35                                                      |
+| SOLAR ADC      | 36                                                      |
+| SD MISO        | 2                                                       |
+| SD MOSI        | 15                                                      |
+| SD CLK         | 14                                                      |
+| SD CS          | 13                                                      |
+| LED            | 12                                                      |
 
 **Modem GPS** is the internal GPIO of the SIM7000G module. When using GPS, GPIO4 needs to be set to high level, as shown below:
 
 ```
-// Set SIM7000G GPIO4 HIGH ,Open GPS power
-modem.sendAT("+SGPIO=0,4,1,1");
+// Set SIM7000G(GPIO4)/SIM7070G(GPIO5) to HIGH ,Open GPS power
+modem.sendAT("+CGPIO=0,48,1,1");
 
-// Set SIM7000G GPIO4 LOW ,Close GPS power
-modem.sendAT("+SGPIO=0,4,1,0");
+// Set SIM7000G(GPIO4)/SIM7070G(GPIO5) to LOW ,Close GPS power
+modem.sendAT("+CGPIO=0,48,1,0");
 ```
 
 - About the onboard indicator light description:
