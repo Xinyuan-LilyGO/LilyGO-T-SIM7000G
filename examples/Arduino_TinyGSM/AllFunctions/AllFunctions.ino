@@ -134,7 +134,7 @@ void loop()
     }
 #endif
 
-    modem.sendAT("+CFUN=0 ");
+    modem.sendAT("+CFUN=0");
     if (modem.waitResponse(10000L) != 1) {
         DBG(" +CFUN=0  false ");
     }
@@ -146,9 +146,9 @@ void loop()
       38 LTE only
       51 GSM and LTE only
     * * * */
-    String res;
-    res = modem.setNetworkMode(2);
-    if (res != "1") {
+
+    bool res = modem.setNetworkMode(2);
+    if (!res) {
         DBG("setNetworkMode  false ");
         return ;
     }
@@ -160,8 +160,7 @@ void loop()
       3 CAT-M and NB-IoT
     * * */
     res = modem.setPreferredMode(3);
-    if (res != "1") {
-
+    if (!res) {
         DBG("setPreferredMode  false ");
         return ;
     }
@@ -178,7 +177,7 @@ void loop()
      }
      delay(200);*/
 
-    modem.sendAT("+CFUN=1 ");
+    modem.sendAT("+CFUN=1");
     if (modem.waitResponse(10000L) != 1) {
         DBG(" +CFUN=1  false ");
     }
@@ -337,8 +336,5 @@ void loop()
     delay(200);
     esp_deep_sleep_start();
 
-    // Do nothing forevermore
-    while (true) {
-        modem.maintain();
-    }
+    Serial.println("This will never be printed");
 }
