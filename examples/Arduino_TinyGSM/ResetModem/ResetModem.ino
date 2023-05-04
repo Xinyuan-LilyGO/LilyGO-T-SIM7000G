@@ -30,54 +30,57 @@ TinyGsm modem(SerialAT);
 
 bool reply = false;
 
-void setup() {
-  // Set console and modem baud rate
-  Serial.begin(9600);
-  SerialAT.begin(9600, SERIAL_8N1, PIN_RX, PIN_TX);
-  delay(500);
-
-  // Set-up modem  power pin
-  Serial.println("\nStarting Up Modem...");
-  pinMode(PWR_PIN, OUTPUT);
-  digitalWrite(PWR_PIN, HIGH);
-  delay(300);
-  digitalWrite(PWR_PIN, LOW);
-  delay(10000);                 //Wait for the SIM7000 communication to be normal, and will quit when receiving OK
-
-  int i = 10;
-  Serial.println("\nTesting Modem Response...\n");
-  Serial.println("****");
-  while (i) {
-    SerialAT.println("AT");
+void setup()
+{
+    // Set console and modem baud rate
+    Serial.begin(9600);
+    SerialAT.begin(9600, SERIAL_8N1, PIN_RX, PIN_TX);
     delay(500);
-    if (SerialAT.available()) {
-      String r = SerialAT.readString();
-      Serial.println(r);
-      if ( r.indexOf("OK") >= 0 ) {
-        reply = true;
-        break;;
-      }
+
+    // Set-up modem  power pin
+    Serial.println("\nStarting Up Modem...");
+    pinMode(PWR_PIN, OUTPUT);
+    digitalWrite(PWR_PIN, HIGH);
+    // Starting the machine requires at least 1 second of low level, and with a level conversion, the levels are opposite
+    delay(1000);
+    digitalWrite(PWR_PIN, LOW);
+    delay(10000);                 //Wait for the SIM7000 communication to be normal, and will quit when receiving OK
+
+    int i = 10;
+    Serial.println("\nTesting Modem Response...\n");
+    Serial.println("****");
+    while (i) {
+        SerialAT.println("AT");
+        delay(500);
+        if (SerialAT.available()) {
+            String r = SerialAT.readString();
+            Serial.println(r);
+            if ( r.indexOf("OK") >= 0 ) {
+                reply = true;
+                break;;
+            }
+        }
+        delay(500);
+        i--;
     }
-    delay(500);
-    i--;
-  }
-  Serial.println("****\n");
+    Serial.println("****\n");
 
-  if (reply) {
+    if (reply) {
 
-    bool ret = modem.factoryDefault();
+        bool ret = modem.factoryDefault();
 
-    Serial.println(F("\n***********************************************************"));
-    Serial.print  (F(" Reset settings to Factory Default: "));
-    Serial.println((ret) ? "OK" : "FAIL");
-    Serial.println(F("***********************************************************"));
-  } else {
-    Serial.println(F("***********************************************************"));
-    Serial.println(F(" Failed to connect to the modem! Check the baud and try again."));
-    Serial.println(F("***********************************************************\n"));
-  }
+        Serial.println(F("\n***********************************************************"));
+        Serial.print  (F(" Reset settings to Factory Default: "));
+        Serial.println((ret) ? "OK" : "FAIL");
+        Serial.println(F("***********************************************************"));
+    } else {
+        Serial.println(F("***********************************************************"));
+        Serial.println(F(" Failed to connect to the modem! Check the baud and try again."));
+        Serial.println(F("***********************************************************\n"));
+    }
 }
 
-void loop() {
+void loop()
+{
 
 }

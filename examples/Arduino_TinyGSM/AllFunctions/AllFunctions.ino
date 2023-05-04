@@ -71,7 +71,8 @@ void setup()
 
     pinMode(PWR_PIN, OUTPUT);
     digitalWrite(PWR_PIN, HIGH);
-    delay(300);
+    // Starting the machine requires at least 1 second of low level, and with a level conversion, the levels are opposite
+    delay(1000);
     digitalWrite(PWR_PIN, LOW);
 
     SPI.begin(SD_SCLK, SD_MISO, SD_MOSI, SD_CS);

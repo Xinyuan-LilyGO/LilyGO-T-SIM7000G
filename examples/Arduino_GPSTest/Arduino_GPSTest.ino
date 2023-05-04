@@ -73,17 +73,17 @@ void disableGPS(void)
 void modemPowerOn()
 {
     pinMode(PWR_PIN, OUTPUT);
-    digitalWrite(PWR_PIN, LOW);
-    delay(1000);    //Datasheet Ton mintues = 1S
     digitalWrite(PWR_PIN, HIGH);
+    delay(1000);    //Datasheet Ton mintues = 1S
+    digitalWrite(PWR_PIN, LOW);
 }
 
 void modemPowerOff()
 {
     pinMode(PWR_PIN, OUTPUT);
-    digitalWrite(PWR_PIN, LOW);
-    delay(1500);    //Datasheet Ton mintues = 1.2S
     digitalWrite(PWR_PIN, HIGH);
+    delay(1500);    //Datasheet Ton mintues = 1.2S
+    digitalWrite(PWR_PIN, LOW);
 }
 
 
