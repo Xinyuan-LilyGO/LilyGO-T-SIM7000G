@@ -43,8 +43,8 @@ print()
 
 # Turn on GPS positioning
 gsm.atcmd('AT+CGNSPWR=1', printable=True)
-# Turn on GPS power control, it is controlled by module GPIO4
-gsm.atcmd('AT+SGPIO=0,4,1,1', printable=True)
+# Turn on Modem GPS power control Pin to High
+gsm.atcmd('AT+CGPIO=0,48,1,1', printable=True)
 
 while True:
     # Get positioning data
@@ -52,7 +52,7 @@ while True:
     # Output information
     print(raw)
     string = raw.split(',')
-    if(int(string[1]) == 1):
+    if (int(string[1]) == 1):
         print('{yy}/{mm}/{dd} == {h}:{m}:{s} == lat:{lat}-lon:{lon}'.format(
             yy=string[2][:4], mm=string[2][4:6], dd=string[2][6:8], h=string[2][8:10], m=string[2][10:12], s=string[2][12:], lat=string[3], lon=string[4]))
         break
@@ -63,5 +63,5 @@ while True:
 
 # Turn off GPS positioning
 gsm.atcmd('AT+CGNSPWR=0', printable=True)
-# Turn off GPS power control, it is controlled by module GPIO4
-gsm.atcmd('AT+SGPIO=0,4,1,0', printable=True)
+# Turn off GPS power control  Pin to Low
+gsm.atcmd('AT+CGPIO=0,48,1,0', printable=True)

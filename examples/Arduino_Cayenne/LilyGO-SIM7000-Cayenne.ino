@@ -62,7 +62,8 @@ void setup()
 
     //Launch SIM7000
     digitalWrite(PWR_PIN, HIGH);
-    delay(300);
+    // Starting the machine requires at least 1 second of low level, and with a level conversion, the levels are opposite
+    delay(1000);
     digitalWrite(PWR_PIN, LOW);
 
 

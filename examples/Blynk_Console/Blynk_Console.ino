@@ -63,29 +63,28 @@ char pass[] = "";
 #define PIN_TX      27
 #define PIN_RX      26
 #define PWR_PIN     4
-#define LED_PIN     12   
+#define LED_PIN     12
 #define BAT_ADC     35
 bool reply = false;
 
 TinyGsm modem(SerialAT);
 
-BLYNK_WRITE(V3) {
-  if(param.asInt()==1)
-  {
+BLYNK_WRITE(V3)
+{
+    if (param.asInt() == 1) {
 
-   digitalWrite(LED_PIN, LOW);
-   Blynk.logEvent("led_off");//Sending Events
-  }
-  else{
-    digitalWrite(LED_PIN, HIGH);
-     Blynk.logEvent("led_on");//Sending Events
-  }
+        digitalWrite(LED_PIN, LOW);
+        Blynk.logEvent("led_off");//Sending Events
+    } else {
+        digitalWrite(LED_PIN, HIGH);
+        Blynk.logEvent("led_on");//Sending Events
+    }
 }
 
 //Syncing the output state with the app at startup
 BLYNK_CONNECTED()
 {
-Blynk.syncVirtual(V3);  // will cause BLYNK_WRITE(V3) to be executed
+    Blynk.syncVirtual(V3);  // will cause BLYNK_WRITE(V3) to be executed
 }
 
 
@@ -97,90 +96,93 @@ float readBattery(uint8_t pin)
     return battery_voltage;
 }
 
- // This function sends Arduino's up time every second to Virtual Pin (5).
+// This function sends Arduino's up time every second to Virtual Pin (5).
 // In the app, Widget's reading frequency should be set to PUSH. This means
 // that you define how often to send data to Blynk App.
 void sendSensor()
 {
-  float h = bmp.readPressure() / 1000;
-  float t = bmp.readTemperature(); // or dht.readTemperature(true) for Fahrenheit
-  float mv = readBattery(BAT_ADC);
-  Serial.print("mv :");  Serial.println(mv);
- Serial.print("Pressure :");  Serial.println(h);
- Serial.print("Temperature :");  Serial.println(t);
+    float h = bmp.readPressure() / 1000;
+    float t = bmp.readTemperature(); // or dht.readTemperature(true) for Fahrenheit
+    float mv = readBattery(BAT_ADC);
+    Serial.print("mv :");  Serial.println(mv);
+    Serial.print("Pressure :");  Serial.println(h);
+    Serial.print("Temperature :");  Serial.println(t);
 
-  if (isnan(h) || isnan(t)|| isnan(mv)) {
-    Serial.println("Failed to read from DHT sensor!");
-    return;
-  }
-  // You can send any value at any time.
-  // Please don't send more that 10 values per second.
-    
-  Blynk.virtualWrite(V0, t); 
-  Blynk.virtualWrite(V1, h);
-  Blynk.virtualWrite(V2, ((mv/4200)*100));
+    if (isnan(h) || isnan(t) || isnan(mv)) {
+        Serial.println("Failed to read from DHT sensor!");
+        return;
+    }
+    // You can send any value at any time.
+    // Please don't send more that 10 values per second.
+
+    Blynk.virtualWrite(V0, t);
+    Blynk.virtualWrite(V1, h);
+    Blynk.virtualWrite(V2, ((mv / 4200) * 100));
 }
 
 
 
 
-void setup() {
-  Serial.begin(115200); // Set console baud rate
-  delay(100);
+void setup()
+{
+    Serial.begin(115200); // Set console baud rate
+    delay(100);
 
-  // Set LED OFF
-  pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, HIGH);
+    // Set LED OFF
+    pinMode(LED_PIN, OUTPUT);
+    digitalWrite(LED_PIN, HIGH);
 
-  pinMode(PWR_PIN, OUTPUT);
-  digitalWrite(PWR_PIN, HIGH);
-  delay(300);
-  digitalWrite(PWR_PIN, LOW);
+    pinMode(PWR_PIN, OUTPUT);
+    digitalWrite(PWR_PIN, HIGH);
+    // Starting the machine requires at least 1 second of low level, and with a level conversion, the levels are opposite
+    delay(1000);
+    digitalWrite(PWR_PIN, LOW);
 
-  SPI.begin(SD_SCLK, SD_MISO, SD_MOSI, SD_CS);
-  if (!SD.begin(SD_CS)) {
-    Serial.println("SDCard MOUNT FAIL");
-  } else {
-    uint32_t cardSize = SD.cardSize() / (1024 * 1024);
-    String str = "SDCard Size: " + String(cardSize) + "MB";
-    Serial.println(str);
-  }
+    SPI.begin(SD_SCLK, SD_MISO, SD_MOSI, SD_CS);
+    if (!SD.begin(SD_CS)) {
+        Serial.println("SDCard MOUNT FAIL");
+    } else {
+        uint32_t cardSize = SD.cardSize() / (1024 * 1024);
+        String str = "SDCard Size: " + String(cardSize) + "MB";
+        Serial.println(str);
+    }
 
-  Serial.println("\nWait...");
+    Serial.println("\nWait...");
 
-  delay(1000);
+    delay(1000);
 
-  SerialAT.begin(UART_BAUD, SERIAL_8N1, PIN_RX, PIN_TX);
-
-
-   // Restart takes quite some time
-  // To skip it, call init() instead of restart()
-  Serial.println("Initializing modem...");
-  if (!modem.restart()) {
-    Serial.println("Failed to restart modem, attempting to continue without restarting");
-  }
-
-  String name = modem.getModemName();
-  delay(500);
-  Serial.println("Modem Name: " + name);
+    SerialAT.begin(UART_BAUD, SERIAL_8N1, PIN_RX, PIN_TX);
 
 
-      // Launch BMP085
+    // Restart takes quite some time
+    // To skip it, call init() instead of restart()
+    Serial.println("Initializing modem...");
+    if (!modem.restart()) {
+        Serial.println("Failed to restart modem, attempting to continue without restarting");
+    }
+
+    String name = modem.getModemName();
+    delay(500);
+    Serial.println("Modem Name: " + name);
+
+
+    // Launch BMP085
     if (!bmp.begin()) {
         Serial.println("Could not find a valid BMP085 sensor, check wiring!");
         while (1) {}
     }
 
 
-  
-   Blynk.begin(auth, modem, apn, user, pass);
-   // Setup a function to be called every second
-  timer.setInterval(2000L, sendSensor);
+
+    Blynk.begin(auth, modem, apn, user, pass);
+    // Setup a function to be called every second
+    timer.setInterval(2000L, sendSensor);
 }
 
-void loop() {
- 
-  Blynk.run();
-  timer.run();
+void loop()
+{
+
+    Blynk.run();
+    timer.run();
 
 }

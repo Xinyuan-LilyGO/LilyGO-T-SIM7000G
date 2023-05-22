@@ -48,42 +48,24 @@ TinyGsm modem(SerialAT);
 #define SD_CS               13
 #define LED_PIN             12
 
-
 void enableGPS(void)
 {
-    // Set SIM7000G GPIO4 LOW ,turn on GPS power
-    // CMD:AT+SGPIO=0,4,1,1
+    // Set Modem GPS Power Control Pin to HIGH ,turn on GPS power
     // Only in version 20200415 is there a function to control GPS power
-    modem.sendAT("+SGPIO=0,4,1,1");
+    modem.sendAT("+CGPIO=0,48,1,1");
     if (modem.waitResponse(10000L) != 1) {
-        DBG(" SGPIO=0,4,1,1 false ");
+        DBG("Set GPS Power HIGH Failed");
     }
-
-    // SIM7070G use GPIO5
-    modem.sendAT("+SGPIO=0,5,1,1");
-    if (modem.waitResponse(10000L) != 1) {
-        DBG(" SGPIO=0,4,1,1 false ");
-    }
-
     modem.enableGPS();
-
-
 }
 
 void disableGPS(void)
 {
-    // Set SIM7000G GPIO4 LOW ,turn off GPS power
-    // CMD:AT+SGPIO=0,4,1,0
+    // Set Modem GPS Power Control Pin to LOW ,turn off GPS power
     // Only in version 20200415 is there a function to control GPS power
-    modem.sendAT("+SGPIO=0,4,1,0");
+    modem.sendAT("+CGPIO=0,48,1,0");
     if (modem.waitResponse(10000L) != 1) {
-        DBG(" SGPIO=0,4,1,0 false ");
-    }
-
-    // SIM7070G use GPIO5
-    modem.sendAT("+SGPIO=0,5,1,0");
-    if (modem.waitResponse(10000L) != 1) {
-        DBG(" SGPIO=0,4,1,0 false ");
+        DBG("Set GPS Power LOW Failed");
     }
     modem.disableGPS();
 }
@@ -91,17 +73,17 @@ void disableGPS(void)
 void modemPowerOn()
 {
     pinMode(PWR_PIN, OUTPUT);
-    digitalWrite(PWR_PIN, LOW);
-    delay(1000);    //Datasheet Ton mintues = 1S
     digitalWrite(PWR_PIN, HIGH);
+    delay(1000);    //Datasheet Ton mintues = 1S
+    digitalWrite(PWR_PIN, LOW);
 }
 
 void modemPowerOff()
 {
     pinMode(PWR_PIN, OUTPUT);
-    digitalWrite(PWR_PIN, LOW);
-    delay(1500);    //Datasheet Ton mintues = 1.2S
     digitalWrite(PWR_PIN, HIGH);
+    delay(1500);    //Datasheet Ton mintues = 1.2S
+    digitalWrite(PWR_PIN, LOW);
 }
 
 
