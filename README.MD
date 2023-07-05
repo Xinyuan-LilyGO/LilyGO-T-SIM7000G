@@ -56,5 +56,6 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
 
    [Upgrade guidelines ](docs/How%20to%20update%20firmware.md)
 
-
+12. When the onboard USB bridge cannot be downloaded, you can use the external USB bridge to upload the sketch 
+   ![](./Historical/Image/externalDownloader.jpg)
 
