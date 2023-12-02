@@ -26,9 +26,9 @@
  *************************************************************/
 
 /* Fill-in your Template ID (only if using Blynk.Cloud) */
-#define BLYNK_TEMPLATE_ID ""
-#define BLYNK_DEVICE_NAME ""
-#define BLYNK_AUTH_TOKEN "";
+#define BLYNK_TEMPLATE_ID           "TMPxxxxxx"
+#define BLYNK_TEMPLATE_NAME         "Device"
+#define BLYNK_AUTH_TOKEN            "YourAuthToken"
 
 // Select your modem:
 #define TINY_GSM_MODEM_SIM7000
@@ -43,6 +43,8 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_BMP085.h>
+#include <SPI.h>
+#include <SD.h>
 
 Adafruit_BMP085 bmp;
 BlynkTimer timer;
@@ -65,6 +67,11 @@ char pass[] = "";
 #define PWR_PIN     4
 #define LED_PIN     12
 #define BAT_ADC     35
+#define SD_MISO             2
+#define SD_MOSI             15
+#define SD_SCLK             14
+#define SD_CS               13
+
 bool reply = false;
 
 TinyGsm modem(SerialAT);
