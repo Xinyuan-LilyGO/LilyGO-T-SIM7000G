@@ -7,10 +7,17 @@
 
 # 1️⃣ Quickly diagnose hardware
 
-| Product        | GPS Test Firmware                                | Network Test Firmware                          |
-| -------------- | ------------------------------------------------ | ---------------------------------------------- |
-| [T-SIM70XX][1] | [Firmware decoded NMEA data](./GPS_Decoder.bin)  | [firmware](./Arduino_NetworkTest_Frimware.bin) |
-| [T-SIM70XX][1] | [Firmware for raw NMEA data](./GPS_RAW_DATA.bin) | [firmware](./Arduino_NetworkTest_Frimware.bin) |
+| GPS Test describe          | GPS Test Firmware                      | Network Test Firmware                          |
+| -------------------------- | -------------------------------------- | ---------------------------------------------- |
+| Firmware decoded NMEA data | [GPS_Decoder.bin](./GPS_Decoder.bin)   | [firmware](./Arduino_NetworkTest_Frimware.bin) |
+| Firmware for raw NMEA data | [GPS_RAW_DATA.bin](./GPS_RAW_DATA.bin) | [firmware](./Arduino_NetworkTest_Frimware.bin) |
+
+* [Firmware for raw NMEA data video](https://youtu.be/eVJ8NNOeWnY)
+
+
+| Network Test describe                        | Network Test Firmware                          |
+| -------------------------------------------- | ---------------------------------------------- |
+| Firmware automatically searches for networks | [firmware](./Arduino_NetworkTest_Frimware.bin) |
 
 
 [1]: https://www.lilygo.cc/products/t-sim7000g
