@@ -259,12 +259,44 @@ void setup()
 
 }
 
+
+uint32_t check_timestamp = 0;
+
 void loop()
-{
-    while (SerialAT.available()) {
-        SerialMon.write(SerialAT.read());
+{   
+    // AT Debug
+    // while (SerialAT.available()) {
+    //     SerialMon.write(SerialAT.read());
+    // }
+    // while (SerialMon.available()) {
+    //     SerialAT.write(SerialMon.read());
+    // }
+    
+    if (millis() > check_timestamp) {
+        Serial.print("[");
+        Serial.print(millis() / 1000);
+        Serial.print("]:");
+        int16_t sq = modem.getSignalQuality();
+        RegStatus s = modem.getRegistrationStatus();
+        if (s != REG_OK_HOME && s != REG_OK_ROAMING) {
+            Serial.println("Devices lost network connect!");
+        } else {
+            modem.sendAT("+CPSI?");
+            if (modem.waitResponse("+CPSI: ") == 1) {
+                String res = modem.stream.readStringUntil('\n');
+                res.replace("\r", "");
+                res.replace("\n", "");
+                modem.waitResponse();
+                Serial.print("Network is connected. Signal Quality:");
+                Serial.println(sq);
+                Serial.print("The current network parameter is:");
+                Serial.println(res);
+            } else {
+                Serial.println("get params failed!");
+            }
+        }
+        check_timestamp = millis() + 5000;
     }
-    while (SerialMon.available()) {
-        SerialAT.write(SerialMon.read());
-    }
+
+
 }
