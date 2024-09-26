@@ -22,6 +22,7 @@
 | Modem Rx       | 26                                                      |
 | Modem Tx       | 27                                                      |
 | Modem PowerKey | 4                                                       |
+| Modem Reset    | 5                                                       |
 | Modem GPS      | SIM7000G(GPIO4)/SIM7070G(GPIO5)(Physical pin number 48) |
 | BAT ADC        | 35                                                      |
 | SOLAR ADC      | 36                                                      |
