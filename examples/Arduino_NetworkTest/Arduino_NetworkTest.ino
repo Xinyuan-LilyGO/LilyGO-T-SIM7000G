@@ -182,7 +182,7 @@ void setup()
 
     // Check network signal and registration information
     Serial.println("> SIM7000/SIM7070 uses automatic mode to access the network. The access speed may be slow. Please wait patiently");
-    RegStatus status;
+    SIM70xxRegStatus status;
     timeout = millis();
     do {
         int16_t sq =  modem.getSignalQuality();
@@ -277,7 +277,7 @@ void loop()
         Serial.print(millis() / 1000);
         Serial.print("]:");
         int16_t sq = modem.getSignalQuality();
-        RegStatus s = modem.getRegistrationStatus();
+        SIM70xxRegStatus s = modem.getRegistrationStatus();
         if (s != REG_OK_HOME && s != REG_OK_ROAMING) {
             Serial.println("Devices lost network connect!");
         } else {
