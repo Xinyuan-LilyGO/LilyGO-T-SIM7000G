@@ -64,4 +64,4 @@ If you need to update the 7070G internal firmware, please select the model below
 
 ![](../image/7070g.png)
 
-
+Note: the modem must be kept powered on during the procedure; upload an appropriate sketch (such as [ATdebug.ino](/examples/Arduino_TinyGSM/ATdebug/ATdebug.ino)), as needed.
