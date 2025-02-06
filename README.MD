@@ -58,3 +58,18 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
 12. When the onboard USB bridge cannot be downloaded, you can use the external USB bridge to upload the sketch 
    ![](./Historical/Image/externalDownloader.jpg)
 
+13. Voltage range
+
+| Battery Voltage requirements | Minimum | Maximum | Charging Current |
+| ---------------------------- | ------- | ------- | ---------------- |
+| SIM7000G                     | 3.5V    | 4.2V    | 500mA            |
+| SIM7070G                     | 3.5V    | 4.2V    | 500mA            |
+
+* It is recommended to use 18650 batteries with a capacity of more than 2500mA
+
+| Solar Voltage requirements | Minimum | Maximum | Charging Current |
+| -------------------------- | ------- | ------- | ---------------- |
+| SIM7000G                   | 4.4V    | 6V      | 500mA            |
+| SIM7070G                   | 4.4V    | 6V      | 500mA            |
+
+* It is recommended to use a solar panel with an output voltage of 6V or 5V and a recommended power of about 10W. Solar energy can only charge the battery and cannot power the board without the battery.
