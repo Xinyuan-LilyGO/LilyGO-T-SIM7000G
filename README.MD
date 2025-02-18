@@ -21,6 +21,12 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
 | [Version 20200415 (点击查看)](./Historical/SIM7000G_20200415/README.MD) | [Aliexpress](https://www.aliexpress.com/item/4000542688096.html)/[Amazon USA](https://www.amazon.com/dp/B099RQ7BSR?ref=myi_title_dp)/[FR](https://www.amazon.fr/dp/B099RQ7BSR?ref=myi_title_dp)/[DE](https://www.amazon.de/dp/B099RQ7BSR?ref=myi_title_dp) | [New Version](./schematic/SIM7000G_20200415.pdf) |   ✅    |
 | [Version 20191227 (点击查看)](./Historical/SIM7000G_20191227/README.MD) |                                                                                                                          Obsolete                                                                                                                          | [Old Version](./schematic/SIM7000G_20191227.pdf) |   ❌    |
 
+## Use reference
+
+|   Product   |                             Youtube  link                             |                  explanation                    | Status | 
+| :---------: | :-------------------------------------------------------------------: |:-----------------------------------------------:| :----: |
+| T -SIM7000G | [Youtube link](https://www.youtube.com/watch?v=XlEUWIxdaNU) |    How to test whether LILYGO T-SIM7000G can register with the network     |   ✅    |
+| LilyGo device | [Youtube link](https://www.youtube.com/watch?v=f3BybP3L7ls) |    How to enter boot mode to download the firmware     |   ✅    |
 
 
 ## Notes for new Users
