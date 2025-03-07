@@ -11,17 +11,15 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
 5. Added battery over-discharge protection
 
  ### Version 20191227
- 
+
    First board release,Sales have been stopped.
-   
+
 <h2 align = "left">Product 📷:</h2>
 
 |                                Examples                                 |                                                                                                                       Product  Link                                                                                                                        |                    Schematic                     | Status |
 | :---------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------: | :----: |
 | [Version 20200415 (点击查看)](./Historical/SIM7000G_20200415/README.MD) | [Aliexpress](https://www.aliexpress.com/item/4000542688096.html)/[Amazon USA](https://www.amazon.com/dp/B099RQ7BSR?ref=myi_title_dp)/[FR](https://www.amazon.fr/dp/B099RQ7BSR?ref=myi_title_dp)/[DE](https://www.amazon.de/dp/B099RQ7BSR?ref=myi_title_dp) | [New Version](./schematic/SIM7000G_20200415.pdf) |   ✅    |
 | [Version 20191227 (点击查看)](./Historical/SIM7000G_20191227/README.MD) |                                                                                                                          Obsolete                                                                                                                          | [Old Version](./schematic/SIM7000G_20191227.pdf) |   ❌    |
-
-
 
 ## Notes for new Users
 
@@ -33,11 +31,11 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
 
 3. On/off switch is for battery use only, it will not function when plugged into USB.
 
-4. Battery voltage can not be read when plugged into USB using the onboard BAT ADC(35) 
+4. Battery voltage can not be read when plugged into USB using the onboard BAT ADC(35)
 
-5. Recommended solar panels are 4.4v to 6v **DO NOT EXCEED OR BOARD MAY BE DAMAGED** 
+5. Recommended solar panels are 4.4v to 6v **DO NOT EXCEED OR BOARD MAY BE DAMAGED**
 
-6. When an SD card in you can not upload software in Arduino IDE since the SD card uses IO2 as CS, the SD card must be removed when uploading a new sketch. 
+6. When an SD card in you can not upload software in Arduino IDE since the SD card uses IO2 as CS, the SD card must be removed when uploading a new sketch.
 
 7. On Version 20200415, When using GPS the SIM7000G(GPIO4)/SIM7070G(GPIO5)(Physical pin number 48) needs to be set to HIGH to enable the antenna `modem.sendAT("+CGPIO=0,48,1,1");` once finished the pin can be set LOW `modem.sendAT("+CGPIO=0,48,1,0");` to prevent power leaking to the GPS antenna, This will make help battery life. If using USB or battery life is not a concern, it can be left HIGH.
 
@@ -49,13 +47,12 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
    ![](image/LTE.png)
 
 10. The initial network registration may be slow. Please be patient. You can configure the locked band as shown in the following figure.
-   ![](image/CBANDCFG.png)
-    
-    
+   ![CBANDCFG](image/CBANDCFG.png)
+
 11. How to update firmware?
    - [Upgrade guidelines ](docs/How%20to%20update%20firmware.md)
 
-12. When the onboard USB bridge cannot be downloaded, you can use the external USB bridge to upload the sketch 
+12. When the onboard USB bridge cannot be downloaded, you can use the external USB bridge to upload the sketch
    ![](./Historical/Image/externalDownloader.jpg)
 
 13. Voltage range
@@ -73,3 +70,44 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
 | SIM7070G                   | 4.4V    | 6V      | 500mA            |
 
 * It is recommended to use a solar panel with an output voltage of 6V or 5V and a recommended power of about 10W. Solar energy can only charge the battery and cannot power the board without the battery.
+
+## GPIO MAP
+
+| FUNCTION            | GPIO NUM |
+| ------------------- | -------- |
+| RX                  | 26       |
+| TX                  | 27       |
+| PWR                 | 4        |
+| DTR                 | 25       |
+| RING                | NC       |
+| RESET               | 5        |
+| ON BOARD LED(BLUE)  | 12       |
+| SD SOCKET MISO      | 2        |
+| SD SOCKET MOSI      | 15       |
+| SD SOCKET SCK       | 14       |
+| SD SOCKET CS        | 13       |
+| BATTERY ADC CONNECT | 35       |
+| SOLAR   ADC CONNECT | 36       |
+
+## ON-BOARD LED
+
+| FUNCTION            | COLOR                     |
+| ------------------- | ------------------------- |
+| MODEM STATUS        | RED   (Near the modem)    |
+| MODEM NETWORK STATE | RED   (Near the modem)    |
+| CHARGE FULL         | GREEN (Near the USB port) |
+| CHARGING            | RED   (Near the USB port) |
+| GPIO CONTROL        | BLUE                      |
+
+### **MODEM STATUS**
+
+- As long as the modem is turned on, the STATUS light will remain on and will go out when it is turned off.
+
+### **MODEM NETWORK STATE**
+
+| Network light status | Module working status                                                                                     |
+| -------------------- | --------------------------------------------------------------------------------------------------------- |
+| 64ms on/ 800ms off   | When not registered on the network                                                                        |
+| 64ms on/ 3000ms off  | Already registered on the network (PS domain registration successful)                                     |
+| 64ms on/ 300ms off   | During data transmission (PPP dial-up state and when using internal TCP/FTP/HTTP and other data services) |
+| Off                  | Power off or PSM sleep mode                                                                               |
