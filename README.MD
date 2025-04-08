@@ -78,8 +78,8 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
 
 > \[!TIP]
 >
-> It is recommended to use a solar panel with an output voltage of 6V or 5V and a power of about 5~10W. Solar energy can only charge the battery. Without the battery, the panel cannot supply power.
-> Please note that this is only a suggestion. It is not necessary to use a 5~10W solar panel. 1W is also acceptable.
+> It is recommended to use a solar panel with an output voltage of 6V or 5V and a power of about 5-10W. Solar energy can only charge the battery. Without the battery, the panel cannot supply power.
+> Please note that this is only a suggestion. It is not necessary to use a 5-10W solar panel. 1W is also acceptable.
 > The size of the solar panel determines the current and speed of solar charging. Please note that depending on the environment,
 > the sunshine time may not exceed one hour per day. At this time, if the solar panel is too small and the light is not sufficient, it cannot be charged.
 
