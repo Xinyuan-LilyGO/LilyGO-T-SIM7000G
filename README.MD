@@ -1,6 +1,24 @@
 <h1 align = "center">LilyGo SIM7000G</h1>
 
 Two main versions of the LilyGo SIM7000G have been released with the current board having better power management than the old board.
+
+
+# News
+
+* It is known that the firmware version 1529B08SIM7000G V01 has problems connecting to the MQTTS 8883 port. Please update the firmware version 1529B10SIM7000G
+* Please see the [upgrade guide](./docs/How%20to%20update%20firmware.md)
+
+```bash
+-> AT+SIMCOMATI
+<-  Revision:1529B08SIM7000G
+    CSUB:V01
+    APRev:1529B08SIM7000,V01
+    QCN:MDM9206_TX3.0.SIM7000G_P1.03_20220415
+    IMEI:xxxxxxxxxxxxx
+```
+
+
+
 ### Version 20200415
 
    This board is an improvement of the original with fixes added that where recommended from feedback.
