@@ -56,8 +56,9 @@
 - [SIM7000X Dirver](https://1drv.ms/u/s!AmbpOqVezk5drS-ateuVXXDK1ulv?e=PN9QdC)
 - [SIM7070  FlashTools](https://1drv.ms/u/s!AmbpOqVezk5dsHJDMvza3wE8961_?e=sa9zT8)
 - [SIM7070  Dirver](https://1drv.ms/u/s!AmbpOqVezk5dsHJDMvza3wE8961_?e=sa9zT8)
-- [1529B10SIM7000G Firmware](https://drive.google.com/file/d/105Jix1EYtxPomX5H1_2VmJphmYDoCYPJ/view?usp=sharing)
-
+<!-- - [1529B10SIM7000G Firmware](https://drive.google.com/file/d/105Jix1EYtxPomX5H1_2VmJphmYDoCYPJ/view?usp=sharing) -->
+- [1529B11V01SIM7000G Fixed MQTTS,HTTPS](https://drive.google.com/file/d/12rZ9b7z3ONCPwtevOcz3khYl5vw4zGL3/view?usp=sharing)
+  
 ## Note
 
 If you need to update the 7070G internal firmware, please select the model below to update
