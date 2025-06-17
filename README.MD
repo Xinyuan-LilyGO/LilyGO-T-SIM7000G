@@ -111,7 +111,7 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
 | PWR                 | 4        |
 | DTR                 | 25       |
 | RING                | NC       |
-| RESET               | 5        |
+| RESET               | NC        |
 | ON BOARD LED(BLUE)  | 12       |
 | SD SOCKET MISO      | 2        |
 | SD SOCKET MOSI      | 15       |
