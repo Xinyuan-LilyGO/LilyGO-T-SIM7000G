@@ -5,6 +5,7 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
 
 # News
 
+* **For more complete and rich examples, please visit the new repository [LilyGO-T-A76XX](https://github.com/Xinyuan-LilyGO/LilyGO-T-A76XX)**
 * It is known that the firmware version 1529B08SIM7000G V01 has problems connecting to the MQTTS 8883 port. Please update the firmware version 1529B10SIM7000G
 * Please see the [upgrade guide](./docs/How%20to%20update%20firmware.md)
 
