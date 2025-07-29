@@ -151,7 +151,6 @@ void loop()
     bool res = modem.setNetworkMode(2);
     if (!res) {
         DBG("setNetworkMode  false ");
-        return ;
     }
     delay(200);
 
@@ -163,7 +162,6 @@ void loop()
     res = modem.setPreferredMode(3);
     if (!res) {
         DBG("setPreferredMode  false ");
-        return ;
     }
     delay(200);
 
@@ -232,7 +230,6 @@ void loop()
     Serial.println("\n\n\nWaiting for network...");
     if (!modem.waitForNetwork()) {
         delay(10000);
-        return;
     }
 
     if (modem.isNetworkConnected()) {
@@ -243,7 +240,6 @@ void loop()
     Serial.println("Connecting to: " + String(apn));
     if (!modem.gprsConnect(apn, gprsUser, gprsPass)) {
         delay(10000);
-        return;
     }
 
     Serial.print("GPRS status: ");
