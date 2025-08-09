@@ -1,6 +1,7 @@
 <h1 align = "center">LilyGo SIM7000G</h1>
 
-Two main versions of the LilyGo SIM7000G have been released with the current board having better power management than the old board.
+## **This repository has been moved to [LilyGo-Modem-Series](https://github.com/Xinyuan-LilyGO/LilyGo-Modem-Series/) Please visit the latest repository to see how to get started**
+<!-- 
 
 
 # News
@@ -142,4 +143,4 @@ Two main versions of the LilyGo SIM7000G have been released with the current boa
 | 64ms on/ 800ms off   | When not registered on the network                                                                        |
 | 64ms on/ 3000ms off  | Already registered on the network (PS domain registration successful)                                     |
 | 64ms on/ 300ms off   | During data transmission (PPP dial-up state and when using internal TCP/FTP/HTTP and other data services) |
-| Off                  | Power off or PSM sleep mode                                                                               |
+| Off                  | Power off or PSM sleep mode                                                                               | -->
